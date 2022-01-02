@@ -2,13 +2,13 @@ package manager
 
 import (
 	"fmt"
-	"gihub.com/xBlaz3kx/ocppManager-go/configuration"
-	v16 "gihub.com/xBlaz3kx/ocppManager-go/v16"
 	"github.com/kkyr/fig"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/localauth"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
 	log "github.com/sirupsen/logrus"
+	"github.com/xBlaz3kx/ocppManager-go/configuration"
+	v16 "github.com/xBlaz3kx/ocppManager-go/v16"
 	"path/filepath"
 	"strings"
 	"sync"

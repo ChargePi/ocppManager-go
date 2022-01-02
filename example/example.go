@@ -1,10 +1,10 @@
 package main
 
 import (
-	manager "gihub.com/xBlaz3kx/ocppManager-go"
-	conf_manager "gihub.com/xBlaz3kx/ocppManager-go/manager"
-	v16 "gihub.com/xBlaz3kx/ocppManager-go/v16"
 	log "github.com/sirupsen/logrus"
+	manager "github.com/xBlaz3kx/ocppManager-go"
+	conf_manager "github.com/xBlaz3kx/ocppManager-go/manager"
+	v16 "github.com/xBlaz3kx/ocppManager-go/v16"
 )
 
 func main() {

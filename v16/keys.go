@@ -1,7 +1,7 @@
 package v16
 
 import (
-	"gihub.com/xBlaz3kx/ocppManager-go/configuration"
+	"github.com/xBlaz3kx/ocppManager-go/configuration"
 )
 
 const (

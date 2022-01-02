@@ -1,11 +1,11 @@
 package manager
 
 import (
-	"gihub.com/xBlaz3kx/ocppManager-go/configuration"
 	"github.com/kkyr/fig"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"github.com/stretchr/testify/suite"
+	"github.com/xBlaz3kx/ocppManager-go/configuration"
 	"os/exec"
 	"strings"
 	"testing"
