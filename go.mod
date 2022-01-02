@@ -1,4 +1,4 @@
-module gihub.com/xBlaz3kx/ocppConfigManager-go
+module gihub.com/xBlaz3kx/ocppManager-go
 
 go 1.17
 

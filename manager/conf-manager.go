@@ -2,8 +2,8 @@ package manager
 
 import (
 	"fmt"
-	"gihub.com/xBlaz3kx/ocppConfigManager-go/configuration"
-	v16 "gihub.com/xBlaz3kx/ocppConfigManager-go/v16"
+	"gihub.com/xBlaz3kx/ocppManager-go/configuration"
+	v16 "gihub.com/xBlaz3kx/ocppManager-go/v16"
 	"github.com/kkyr/fig"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/localauth"

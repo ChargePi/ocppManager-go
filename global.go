@@ -1,8 +1,8 @@
 package ocpp_config_manager
 
 import (
-	"gihub.com/xBlaz3kx/ocppConfigManager-go/configuration"
-	. "gihub.com/xBlaz3kx/ocppConfigManager-go/manager"
+	"gihub.com/xBlaz3kx/ocppManager-go/configuration"
+	. "gihub.com/xBlaz3kx/ocppManager-go/manager"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"reflect"
 	"sync"

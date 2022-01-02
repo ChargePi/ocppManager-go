@@ -1,17 +1,15 @@
-package main
+# 🔌 ocppManager-go
 
-import (
-	manager "gihub.com/xBlaz3kx/ocppManager-go"
-	conf_manager "gihub.com/xBlaz3kx/ocppManager-go/manager"
-	v16 "gihub.com/xBlaz3kx/ocppManager-go/v16"
-	log "github.com/sirupsen/logrus"
-)
+A library for dynamically managing OCPP configuration (variables). It can read, update, and validate OCPP variables.
+Currently, only mandatory key validation is implemented. Value validation will be implemented in the near future.
 
-func main() {
-	log.SetLevel(log.DebugLevel)
+## ⚡ Usage
 
-	// Set JSON file format
-	manager.SetFileFormat(conf_manager.JSON)
+Check out the full [example](example/example.go). It also contains a sample configuration file.
+
+``` go
+    // Set JSON file format
+    manager.SetFileFormat(conf_manager.JSON)
 
 	// Load configuration from file
 	err := manager.LoadConfiguration()
@@ -19,16 +17,17 @@ func main() {
 		log.Fatalf("Error loading configuration: %v", err)
 	}
 
-	// Get value
+	// Get key value
 	value, err := manager.GetConfigurationValue(v16.AuthorizationCacheEnabled.String())
 	if err != nil {
 		log.Errorf("Error getting configuration value: %v", err)
 		return
 	}
 
+    // Should be true
 	log.Println(value)
 
-	// Update key
+	// Update key (only works if the key is can be overwritten)
 	err = manager.UpdateKey(v16.AuthorizationCacheEnabled.String(), "false")
 	if err != nil {
 		log.Errorf("Error updating key: %v", err)
@@ -40,4 +39,4 @@ func main() {
 	if err != nil {
 		log.Errorf("Error updating configuration file: %v", err)
 	}
-}
+```

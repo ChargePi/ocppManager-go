@@ -9,7 +9,7 @@
 		{
 			"key": "AuthorizationCacheEnabled",
 			"readonly": false,
-			"value": "false"
+			"value": "true"
 		},
 		{
 			"key": "AuthorizeRemoteTxRequests",
