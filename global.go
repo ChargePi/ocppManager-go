@@ -2,6 +2,7 @@ package ocpp_config_manager
 
 import (
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
+	"github.com/xBlaz3kx/ocppManager-go/configuration"
 	. "github.com/xBlaz3kx/ocppManager-go/manager"
 	"reflect"
 	"sync"
