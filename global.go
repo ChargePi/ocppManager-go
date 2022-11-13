@@ -1,9 +1,8 @@
-package ocpp_config_manager
+package ocppConfigManager
 
 import (
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/xBlaz3kx/ocppManager-go/configuration"
-	. "github.com/xBlaz3kx/ocppManager-go/manager"
 	"reflect"
 	"sync"
 )
@@ -24,8 +23,7 @@ func init() {
 		manager = NewManager()
 		// Set default file information
 		manager.SetFilePath(defaultFilePath)
-		manager.SetFileName(defaultFileName)
-		manager.SetFileFormat(defaultFileFormat)
+		manager.SetFilePath(defaultFileName)
 
 		// Set supported profile and version
 		manager.SetSupportedProfiles("core")
@@ -47,14 +45,6 @@ func SetManager(confManager Manager) {
 	}
 
 	manager = confManager
-}
-
-func SetFileFormat(format FileFormat) {
-	manager.SetFileFormat(format)
-}
-
-func SetFileName(name string) {
-	manager.SetFileName(name)
 }
 
 func SetFilePath(path string) {
@@ -80,12 +70,12 @@ func GetConfiguration() ([]core.ConfigurationKey, error) {
 }
 
 // UpdateKey Update the configuration variable in the global configuration if it is not readonly.
-func UpdateKey(key string, value string) error {
+func UpdateKey(key string, value *string) error {
 	return manager.UpdateKey(key, value)
 }
 
 // GetConfigurationValue Get the value of specified configuration variable from the global configuration in String format.
-func GetConfigurationValue(key string) (string, error) {
+func GetConfigurationValue(key string) (*string, error) {
 	return manager.GetConfigurationValue(key)
 }
 

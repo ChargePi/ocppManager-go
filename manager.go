@@ -1,4 +1,4 @@
-package manager
+package ocppConfigManager
 
 import (
 	"fmt"
@@ -8,7 +8,6 @@ import (
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
 	log "github.com/sirupsen/logrus"
 	"github.com/xBlaz3kx/ocppManager-go/configuration"
-	v16 "github.com/xBlaz3kx/ocppManager-go/v16"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -16,24 +15,19 @@ import (
 
 type (
 	Manager interface {
-		SetFileFormat(format FileFormat)
-		SetFileName(name string)
-		SetFilePath(path string)
+		SetFilePath(name string)
 		SetVersion(version configuration.ProtocolVersion)
 		SetSupportedProfiles(profiles ...string)
 		SetConfiguration(configuration configuration.Config) error
 		LoadConfiguration() error
 		validateConfiguration(config *configuration.Config, mandatoryKeys []configuration.Key) error
-		UpdateKey(key string, value string) error
-		GetConfigurationValue(key string) (string, error)
+		UpdateKey(key string, value *string) error
+		GetConfigurationValue(key string) (*string, error)
 		GetConfiguration() ([]core.ConfigurationKey, error)
 		UpdateConfigurationFile() error
 	}
 
 	ManagerImpl struct {
-		fileFormat        FileFormat
-		fileName          string
-		filePath          string
 		fullFilePath      string
 		supportedProfiles []string
 		ocppConfig        *configuration.Config
@@ -45,9 +39,6 @@ type (
 
 func NewManager() Manager {
 	return &ManagerImpl{
-		fileFormat:    "",
-		fileName:      "",
-		filePath:      "",
 		fullFilePath:  "",
 		ocppConfig:    nil,
 		ocppVersion:   "",
@@ -56,28 +47,11 @@ func NewManager() Manager {
 	}
 }
 
-func (m *ManagerImpl) SetFileFormat(format FileFormat) {
+func (m *ManagerImpl) SetFilePath(name string) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	m.fileFormat = format
-	m.fullFilePath = fmt.Sprintf("%s/%s.%s", m.filePath, m.fileName, m.fileFormat)
-}
-
-func (m *ManagerImpl) SetFileName(name string) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-
-	m.fileName = name
-	m.fullFilePath = fmt.Sprintf("%s/%s.%s", m.filePath, m.fileName, m.fileFormat)
-}
-
-func (m *ManagerImpl) SetFilePath(path string) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-
-	m.filePath = path
-	m.fullFilePath = fmt.Sprintf("%s/%s.%s", m.filePath, m.fileName, m.fileFormat)
+	m.fullFilePath = name
 }
 
 func (m *ManagerImpl) SetSupportedProfiles(profiles ...string) {
@@ -85,7 +59,6 @@ func (m *ManagerImpl) SetSupportedProfiles(profiles ...string) {
 	defer m.mu.Unlock()
 
 	m.supportedProfiles = profiles
-	m.fullFilePath = fmt.Sprintf("%s/%s.%s", m.filePath, m.fileName, m.fileFormat)
 }
 
 func (m *ManagerImpl) SetConfiguration(configuration configuration.Config) error {
@@ -110,13 +83,13 @@ func (m *ManagerImpl) SetVersion(version configuration.ProtocolVersion) {
 		for _, profile := range m.supportedProfiles {
 			switch strings.ToLower(profile) {
 			case core.ProfileName:
-				m.mandatoryKeys = append(m.mandatoryKeys, v16.MandatoryCoreKeys...)
+				m.mandatoryKeys = append(m.mandatoryKeys, configuration.MandatoryCoreKeys...)
 				break
 			case smartcharging.ProfileName:
-				m.mandatoryKeys = append(m.mandatoryKeys, v16.MandatorySmartChargingKeys...)
+				m.mandatoryKeys = append(m.mandatoryKeys, configuration.MandatorySmartChargingKeys...)
 				break
 			case localauth.ProfileName:
-				m.mandatoryKeys = append(m.mandatoryKeys, v16.MandatoryLocalAuthKeys...)
+				m.mandatoryKeys = append(m.mandatoryKeys, configuration.MandatoryLocalAuthKeys...)
 				break
 			}
 		}
@@ -180,7 +153,7 @@ func (m *ManagerImpl) validateConfiguration(config *configuration.Config, mandat
 	return nil
 }
 
-func (m *ManagerImpl) UpdateKey(key string, value string) error {
+func (m *ManagerImpl) UpdateKey(key string, value *string) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -194,7 +167,7 @@ func (m *ManagerImpl) GetConfiguration() ([]core.ConfigurationKey, error) {
 	return m.ocppConfig.GetConfig(), nil
 }
 
-func (m *ManagerImpl) GetConfigurationValue(key string) (string, error) {
+func (m *ManagerImpl) GetConfigurationValue(key string) (*string, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 

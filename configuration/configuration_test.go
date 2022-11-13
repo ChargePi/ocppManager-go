@@ -6,6 +6,11 @@ import (
 	"testing"
 )
 
+var (
+	val1 = "60"
+	val2 = "ABCD"
+)
+
 type OcppConfigTest struct {
 	suite.Suite
 	keys   []core.ConfigurationKey
@@ -15,17 +20,17 @@ type OcppConfigTest struct {
 func (s *OcppConfigTest) SetupTest() {
 	s.keys = []core.ConfigurationKey{
 		{
-			Key:      "Test1",
+			Key:      HeartbeatInterval.String(),
 			Readonly: false,
-			Value:    "60",
+			Value:    &val1,
 		}, {
-			Key:      "Test2",
-			Readonly: false,
-			Value:    "ABCD",
+			Key:      ChargingScheduleAllowedChargingRateUnit.String(),
+			Readonly: true,
+			Value:    &val2,
 		}, {
-			Key:      "Test3",
+			Key:      AuthorizationCacheEnabled.String(),
 			Readonly: false,
-			Value:    "",
+			Value:    nil,
 		},
 	}
 
@@ -36,7 +41,7 @@ func (s *OcppConfigTest) SetupTest() {
 }
 
 func (s *OcppConfigTest) TestGetConfig() {
-	s.Require().Equal(s.keys, s.config.GetConfig())
+	s.Assert().Equal(s.keys, s.config.GetConfig())
 
 	// Overwrite the config
 	s.config = Config{
@@ -44,27 +49,28 @@ func (s *OcppConfigTest) TestGetConfig() {
 		Keys:    []core.ConfigurationKey{},
 	}
 
-	s.Require().Equal([]core.ConfigurationKey{}, s.config.GetConfig())
+	s.Assert().Equal([]core.ConfigurationKey{}, s.config.GetConfig())
 }
 
 func (s *OcppConfigTest) TestUpdateKey() {
-	// Ok case
-	err := s.config.UpdateKey("Test1", "1234")
+	// Ok casew
+	newVal := "1234"
+	err := s.config.UpdateKey(HeartbeatInterval.String(), &newVal)
+	s.Assert().NoError(err)
+	value, err := s.config.GetConfigurationValue(HeartbeatInterval.String())
 	s.Require().NoError(err)
-	value, err := s.config.GetConfigurationValue("Test1")
-	s.Require().NoError(err)
-	s.Require().Equal("1234", value)
+	s.Assert().EqualValues("1234", *value)
 
 	// Invalid key
-	err = s.config.UpdateKey("Test4", "1234")
-	s.Require().Error(err)
+	err = s.config.UpdateKey("Test4", nil)
+	s.Assert().Error(err)
 
 	// Key is readOnly
-	err = s.config.UpdateKey("Test2", "BCDEF")
-	s.Require().Error(err)
-	value, err = s.config.GetConfigurationValue("Test2")
-	s.Require().NoError(err)
-	s.Require().Equal("ABCD", value)
+	err = s.config.UpdateKey(ChargingScheduleAllowedChargingRateUnit.String(), nil)
+	s.Assert().Error(err)
+	value, err = s.config.GetConfigurationValue(ChargingScheduleAllowedChargingRateUnit.String())
+	s.Assert().NoError(err)
+	s.Assert().EqualValues("ABCD", *value)
 }
 
 func TestOCPPConfig(t *testing.T) {

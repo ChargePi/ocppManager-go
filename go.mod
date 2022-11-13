@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/kkyr/fig v0.3.0
-	github.com/lorenzodonini/ocpp-go v0.14.0
+	github.com/lorenzodonini/ocpp-go v0.16.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
 	gopkg.in/yaml.v2 v2.4.0

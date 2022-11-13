@@ -1,4 +1,4 @@
-package manager
+package ocppConfigManager
 
 import (
 	"github.com/kkyr/fig"
@@ -11,12 +11,6 @@ import (
 	"testing"
 )
 
-const (
-	defaultFileFormat = YamlFile
-	defaultFileName   = "configuration"
-	defaultFilePath   = "."
-)
-
 type ConfigurationManagerTestSuite struct {
 	suite.Suite
 	config  configuration.Config
@@ -27,47 +21,48 @@ func (s *ConfigurationManagerTestSuite) SetupTest() {
 	s.manager = NewManager()
 
 	// Set default file information
-	s.manager.SetFilePath(defaultFilePath)
-	s.manager.SetFileName(defaultFileName)
-	s.manager.SetFileFormat(defaultFileFormat)
+	s.manager.SetFilePath(defaultFilePath + defaultFileName + string(defaultFileFormat))
 
 	// Set supported profile and version
 	s.manager.SetSupportedProfiles("core")
 	s.manager.SetVersion(configuration.OCPP16)
 
+	val := strings.Join(
+		[]string{
+			string(types.MeasurandEnergyActiveExportInterval),
+			string(types.MeasurandCurrentExport),
+			string(types.MeasurandVoltage),
+		},
+		",")
+
+	val1 := "60"
+
 	s.config = configuration.Config{
 		Version: 1,
 		Keys: []core.ConfigurationKey{
 			{
-				Key:      "Test1",
+				Key:      configuration.HeartbeatInterval.String(),
 				Readonly: false,
-				Value:    "60",
+				Value:    &val1,
 			}, {
-				Key:      "Test2",
+				Key:      configuration.ChargeProfileMaxStackLevel.String(),
 				Readonly: false,
-				Value:    "ABCD",
+				Value:    nil,
 			},
 			{
-				Key:      "MeterValuesSampledData",
+				Key:      configuration.MeterValuesSampledData.String(),
 				Readonly: false,
-				Value: strings.Join(
-					[]string{
-						string(types.MeasurandEnergyActiveExportInterval),
-						string(types.MeasurandCurrentExport),
-						string(types.MeasurandVoltage),
-					},
-					",",
-				),
+				Value:    &val,
 			},
 		}}
 
 	err := writeToFile("configuration.yaml", s.config)
-	s.Require().NoError(err)
+	s.Assert().NoError(err)
 }
 
 func (s *ConfigurationManagerTestSuite) TestGetConfiguration() {
 	err := s.manager.LoadConfiguration()
-	s.Require().NoError(err)
+	s.Assert().NoError(err)
 
 	//todo
 }
@@ -86,11 +81,11 @@ func (s *ConfigurationManagerTestSuite) TestUpdateConfigurationFile() {
 	)
 
 	err := s.manager.UpdateConfigurationFile()
-	s.Require().NoError(err)
+	s.Assert().NoError(err)
 
 	err = fig.Load(&fileConfig, fig.File("configuration.yaml"), fig.Dirs("."))
-	s.Require().NoError(err)
-	s.Require().Equal(s.config, fileConfig)
+	s.Assert().NoError(err)
+	s.Assert().Equal(s.config, fileConfig)
 
 	// Delete the unnecessary file
 	exec.Command("rm configuration.json")

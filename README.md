@@ -7,9 +7,20 @@ Currently, only mandatory key validation is implemented. Value validation will b
 
 Check out the full [example](example/example.go). It also contains a sample configuration file.
 
-``` go
-    // Set JSON file format
-    manager.SetFileFormat(conf_manager.JSON)
+```go
+
+package main
+
+import (
+	log "github.com/sirupsen/logrus"
+	manager "github.com/xBlaz3kx/ocppManager-go"
+	v16 "github.com/xBlaz3kx/ocppManager-go/configuration"
+)
+
+func main() {
+	log.SetLevel(log.DebugLevel)
+
+	manager.SetFilePath("./configuration.json")
 
 	// Load configuration from file
 	err := manager.LoadConfiguration()
@@ -17,18 +28,18 @@ Check out the full [example](example/example.go). It also contains a sample conf
 		log.Fatalf("Error loading configuration: %v", err)
 	}
 
-	// Get key value
+	// Get value
 	value, err := manager.GetConfigurationValue(v16.AuthorizationCacheEnabled.String())
 	if err != nil {
 		log.Errorf("Error getting configuration value: %v", err)
 		return
 	}
 
-    // Should be true
 	log.Println(value)
 
-	// Update key (only works if the key is can be overwritten)
-	err = manager.UpdateKey(v16.AuthorizationCacheEnabled.String(), "false")
+	// Update key
+	val := "false"
+	err = manager.UpdateKey(v16.AuthorizationCacheEnabled.String(), &val)
 	if err != nil {
 		log.Errorf("Error updating key: %v", err)
 		return
@@ -39,4 +50,5 @@ Check out the full [example](example/example.go). It also contains a sample conf
 	if err != nil {
 		log.Errorf("Error updating configuration file: %v", err)
 	}
+}
 ```

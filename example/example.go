@@ -3,15 +3,13 @@ package main
 import (
 	log "github.com/sirupsen/logrus"
 	manager "github.com/xBlaz3kx/ocppManager-go"
-	conf_manager "github.com/xBlaz3kx/ocppManager-go/manager"
-	v16 "github.com/xBlaz3kx/ocppManager-go/v16"
+	v16 "github.com/xBlaz3kx/ocppManager-go/configuration"
 )
 
 func main() {
 	log.SetLevel(log.DebugLevel)
 
-	// Set JSON file format
-	manager.SetFileFormat(conf_manager.JSON)
+	manager.SetFilePath("./configuration.json")
 
 	// Load configuration from file
 	err := manager.LoadConfiguration()
@@ -29,7 +27,8 @@ func main() {
 	log.Println(value)
 
 	// Update key
-	err = manager.UpdateKey(v16.AuthorizationCacheEnabled.String(), "false")
+	val := "false"
+	err = manager.UpdateKey(v16.AuthorizationCacheEnabled.String(), &val)
 	if err != nil {
 		log.Errorf("Error updating key: %v", err)
 		return

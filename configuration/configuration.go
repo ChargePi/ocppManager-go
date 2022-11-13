@@ -25,8 +25,8 @@ func (k Key) String() string {
 }
 
 // UpdateKey Update the configuration variable in the configuration if it is not readonly.
-func (config *Config) UpdateKey(key string, value string) error {
-	log.Debugf("Updating key %s to %s", key, value)
+func (config *Config) UpdateKey(key string, value *string) error {
+	log.Debugf("Updating key %s", key)
 
 	for i, configKey := range config.Keys {
 		if configKey.Key == key {
@@ -43,7 +43,7 @@ func (config *Config) UpdateKey(key string, value string) error {
 }
 
 //GetConfigurationValue Get the value of specified configuration variable in String format.
-func (config *Config) GetConfigurationValue(key string) (string, error) {
+func (config *Config) GetConfigurationValue(key string) (*string, error) {
 	log.Debugf("Getting key %s", key)
 
 	for _, configKey := range config.Keys {
@@ -52,10 +52,20 @@ func (config *Config) GetConfigurationValue(key string) (string, error) {
 		}
 	}
 
-	return "", ErrKeyNotFound
+	return nil, ErrKeyNotFound
 }
 
 // GetConfig Get the configuration
 func (config *Config) GetConfig() []core.ConfigurationKey {
 	return config.Keys
+}
+
+// GetVersion Get the current version
+func (config *Config) GetVersion() int {
+	return config.Version
+}
+
+// SetVersion Set the current version
+func (config *Config) SetVersion(version int) {
+	config.Version = version
 }

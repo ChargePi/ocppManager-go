@@ -1,4 +1,4 @@
-package manager
+package ocppConfigManager
 
 import (
 	"encoding/json"
