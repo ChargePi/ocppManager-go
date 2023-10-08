@@ -1,9 +1,10 @@
-package configuration
+package ocpp_v16
 
 import (
+	"testing"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 var (
@@ -20,15 +21,15 @@ type OcppConfigTest struct {
 func (s *OcppConfigTest) SetupTest() {
 	s.keys = []core.ConfigurationKey{
 		{
-			Key:      HeartbeatInterval.String(),
+			Key:      "HeartbeatInterval",
 			Readonly: false,
 			Value:    &val1,
 		}, {
-			Key:      ChargingScheduleAllowedChargingRateUnit.String(),
+			Key:      "ChargingScheduleAllowedChargingRateUnit",
 			Readonly: true,
 			Value:    &val2,
 		}, {
-			Key:      AuthorizationCacheEnabled.String(),
+			Key:      "AuthorizationCacheEnabled",
 			Readonly: false,
 			Value:    nil,
 		},
@@ -53,11 +54,11 @@ func (s *OcppConfigTest) TestGetConfig() {
 }
 
 func (s *OcppConfigTest) TestUpdateKey() {
-	// Ok casew
+	// Ok case
 	newVal := "1234"
-	err := s.config.UpdateKey(HeartbeatInterval.String(), &newVal)
+	err := s.config.UpdateKey("HeartbeatInterval", &newVal)
 	s.Assert().NoError(err)
-	value, err := s.config.GetConfigurationValue(HeartbeatInterval.String())
+	value, err := s.config.GetConfigurationValue("HeartbeatInterval")
 	s.Require().NoError(err)
 	s.Assert().EqualValues("1234", *value)
 
@@ -66,9 +67,9 @@ func (s *OcppConfigTest) TestUpdateKey() {
 	s.Assert().Error(err)
 
 	// Key is readOnly
-	err = s.config.UpdateKey(ChargingScheduleAllowedChargingRateUnit.String(), nil)
+	err = s.config.UpdateKey("ChargingScheduleAllowedChargingRateUnit", nil)
 	s.Assert().Error(err)
-	value, err = s.config.GetConfigurationValue(ChargingScheduleAllowedChargingRateUnit.String())
+	value, err = s.config.GetConfigurationValue("ChargingScheduleAllowedChargingRateUnit")
 	s.Assert().NoError(err)
 	s.Assert().EqualValues("ABCD", *value)
 }

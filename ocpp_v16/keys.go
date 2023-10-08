@@ -1,4 +1,11 @@
-package configuration
+package ocpp_v16
+
+import (
+	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
+	"github.com/lorenzodonini/ocpp-go/ocpp1.6/firmware"
+	"github.com/lorenzodonini/ocpp-go/ocpp1.6/localauth"
+	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
+)
 
 const (
 	/* ----------------- Core keys ----------------------- */
@@ -48,6 +55,10 @@ const (
 
 	ReserveConnectorZeroSupported = Key("ReserveConnectorZeroSupported")
 
+	/* ----------------- Firmware keys ----------------------- */
+
+	SupportedFileTransferProtocols = Key("SupportedFileTransferProtocols")
+
 	/* ----------------- SmartCharging keys ----------------------- */
 
 	ChargeProfileMaxStackLevel              = Key("ChargeProfileMaxStackLevel")
@@ -93,4 +104,27 @@ var (
 		ChargingScheduleAllowedChargingRateUnit,
 		ChargeProfileMaxStackLevel,
 	}
+
+	MandatoryFirmwareKeys = []Key{
+		SupportedFileTransferProtocols,
+	}
 )
+
+func GetMandatoryKeysForProfile(profiles ...string) []Key {
+	mandatoryKeys := []Key{}
+
+	for _, profile := range profiles {
+		switch profile {
+		case core.ProfileName:
+			mandatoryKeys = append(mandatoryKeys, MandatoryCoreKeys...)
+		case smartcharging.ProfileName:
+			mandatoryKeys = append(mandatoryKeys, MandatorySmartChargingKeys...)
+		case localauth.ProfileName:
+			mandatoryKeys = append(mandatoryKeys, MandatoryLocalAuthKeys...)
+		case firmware.ProfileName:
+			mandatoryKeys = append(mandatoryKeys, MandatoryFirmwareKeys...)
+		}
+	}
+
+	return mandatoryKeys
+}
