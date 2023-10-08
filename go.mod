@@ -1,13 +1,12 @@
 module github.com/xBlaz3kx/ocppManager-go
 
-go 1.17
+go 1.18
 
 require (
-	github.com/kkyr/fig v0.3.0
 	github.com/lorenzodonini/ocpp-go v0.16.0
-	github.com/sirupsen/logrus v1.4.2
-	github.com/stretchr/testify v1.4.0
-	gopkg.in/yaml.v2 v2.4.0
+	github.com/samber/lo v1.38.1
+	github.com/sirupsen/logrus v1.9.3
+	github.com/stretchr/testify v1.7.0
 )
 
 require (
@@ -16,13 +15,10 @@ require (
 	github.com/go-playground/universal-translator v0.16.0 // indirect
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/gorilla/websocket v1.4.1 // indirect
-	github.com/konsorten/go-windows-terminal-sequences v1.0.1 // indirect
 	github.com/leodido/go-urn v1.1.0 // indirect
-	github.com/mitchellh/mapstructure v1.4.1 // indirect
-	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/samber/lo v1.38.1 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
-	golang.org/x/sys v0.0.0-20211019181941-9d821ace8654 // indirect
+	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	gopkg.in/go-playground/validator.v9 v9.30.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 )

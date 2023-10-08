@@ -2,11 +2,13 @@ package ocpp_v16
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/firmware"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/localauth"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
+	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"github.com/samber/lo"
 	log "github.com/sirupsen/logrus"
 )
@@ -64,102 +66,115 @@ func DefaultCoreConfiguration() []core.ConfigurationKey {
 		{
 			Key:      ClockAlignedDataInterval.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("0"),
 		},
 		{
 			Key:      ConnectionTimeOut.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("60"),
 		},
 		{
 			Key:      GetConfigurationMaxKeys.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("100"),
 		},
 		{
 			Key:      HeartbeatInterval.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("60"),
 		},
 		{
 			Key:      LocalPreAuthorize.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("false"),
 		},
 		{
 			Key:      MeterValuesAlignedData.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("true"),
 		},
 		{
 			Key:      MeterValuesSampledData.String(),
 			Readonly: false,
-			Value:    nil,
-		},
-		{
-			Key:      MeterValuesSampledData.String(),
-			Readonly: false,
-			Value:    nil,
+			Value: lo.ToPtr(strings.Join([]string{
+				string(types.MeasurandVoltage),
+				string(types.MeasurandCurrentImport),
+				string(types.MeasurandPowerActiveImport),
+				string(types.MeasurandEnergyActiveImportInterval),
+				string(types.MeasueandSoC),
+			}, ",")),
 		},
 		{
 			Key:      MeterValueSampleInterval.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("20"),
 		},
 		{
 			Key:      NumberOfConnectors.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("1"),
 		},
 		{
 			Key:      ResetRetries.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("3"),
 		},
 		{
 			Key:      ConnectorPhaseRotation.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("Unknown"),
 		},
 		{
 			Key:      StopTransactionOnEVSideDisconnect.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("true"),
 		},
 		{
 			Key:      StopTransactionOnInvalidId.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("true"),
 		},
 		{
 			Key:      StopTxnAlignedData.String(),
 			Readonly: false,
-			Value:    nil,
+			Value: lo.ToPtr(strings.Join([]string{
+				string(types.MeasurandVoltage),
+				string(types.MeasurandCurrentImport),
+				string(types.MeasurandPowerActiveImport),
+				string(types.MeasurandEnergyActiveImportInterval),
+				string(types.MeasueandSoC),
+			}, ",")),
 		},
 		{
 			Key:      StopTxnSampledData.String(),
 			Readonly: false,
-			Value:    nil,
+			Value: lo.ToPtr(strings.Join([]string{
+				string(types.MeasurandVoltage),
+				string(types.MeasurandCurrentImport),
+				string(types.MeasurandPowerActiveImport),
+				string(types.MeasurandEnergyActiveImportInterval),
+				string(types.MeasueandSoC),
+			}, ",")),
 		},
 		{
 			Key:      SupportedFeatureProfiles.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("Core"),
 		},
 		{
 			Key:      TransactionMessageAttempts.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("3"),
 		},
 		{
 			Key:      TransactionMessageRetryInterval.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("30"),
 		},
 		{
 			Key:      UnlockConnectorOnEVSideDisconnect.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("true"),
 		},
 	}
 }
@@ -169,17 +184,17 @@ func DefaultLocalAuthConfiguration() []core.ConfigurationKey {
 		{
 			Key:      LocalAuthListEnabled.String(),
 			Readonly: false,
-			Value:    nil,
+			Value:    lo.ToPtr("true"),
 		},
 		{
 			Key:      LocalAuthListMaxLength.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("10"),
 		},
 		{
 			Key:      SendLocalListMaxLength.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("10"),
 		},
 	}
 }
@@ -188,28 +203,23 @@ func DefaultSmartChargingConfiguration() []core.ConfigurationKey {
 	return []core.ConfigurationKey{
 		{
 			Key:      ChargeProfileMaxStackLevel.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("5"),
 		},
 		{
 			Key:      ChargingScheduleAllowedChargingRateUnit.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("Current,Power"),
 		},
 		{
 			Key:      ChargingScheduleMaxPeriods.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("6"),
 		},
 		{
 			Key:      MaxChargingProfilesInstalled.String(),
-			Readonly: false,
-			Value:    nil,
-		},
-		{
-			Key:      ConnectorSwitch3to1PhaseSupported.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("5"),
 		},
 	}
 }
@@ -218,8 +228,8 @@ func DefaultFirmwareConfiguration() []core.ConfigurationKey {
 	return []core.ConfigurationKey{
 		{
 			Key:      SupportedFileTransferProtocols.String(),
-			Readonly: false,
-			Value:    nil,
+			Readonly: true,
+			Value:    lo.ToPtr("HTTP,HTTPS,FTP,FTPS,SFTP"),
 		},
 	}
 }
@@ -228,6 +238,7 @@ func DefaultFirmwareConfiguration() []core.ConfigurationKey {
 func (config *Config) UpdateKey(key string, value *string) error {
 	log.Debugf("Updating key %s", key)
 
+	// Find the index of the key
 	configKey, index, isFound := lo.FindIndexOf(config.Keys, func(item core.ConfigurationKey) bool {
 		return item.Key == key
 	})
