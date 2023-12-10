@@ -1,18 +1,3 @@
-# OCPP variable manager
-
-A library for managing OCPP 1.6 and 2.0.1 variables, with mandatory key and custom value validation.
-
-## Installing
-
-```bash
-    go get github.com/xBlaz3kx/ocppManager-go
-```
-
-## ⚡ Usage
-
-Check out the full [example](examples/v16/example.go). It also contains a sample configuration file.
-
-```go
 package main
 
 import (
@@ -68,5 +53,3 @@ func main() {
 		return
 	}
 }
-
-```
