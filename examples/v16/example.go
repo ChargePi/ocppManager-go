@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/ChargePi/ocppManager-go/ocpp_v16"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
 	log "github.com/sirupsen/logrus"
-	"github.com/xBlaz3kx/ocppManager-go/ocpp_v16"
 )
 
 func main() {

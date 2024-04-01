@@ -5,7 +5,7 @@ A library for managing OCPP 1.6 and 2.0.1 variables, with mandatory key and cust
 ## Installing
 
 ```bash
-    go get github.com/xBlaz3kx/ocppManager-go
+    go get github.com/ChargePi/ocppManager-go
 ```
 
 ## ⚡ Usage
@@ -19,7 +19,7 @@ import (
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
 	log "github.com/sirupsen/logrus"
-	"github.com/xBlaz3kx/ocppManager-go/ocpp_v16"
+	"github.com/ChargePi/ocppManager-go/ocpp_v16"
 )
 
 func main() {
