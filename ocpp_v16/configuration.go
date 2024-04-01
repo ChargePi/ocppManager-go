@@ -112,7 +112,7 @@ func DefaultCoreConfiguration() []core.ConfigurationKey {
 		},
 		{
 			Key:      NumberOfConnectors.String(),
-			Readonly: false,
+			Readonly: true,
 			Value:    lo.ToPtr("1"),
 		},
 		{
@@ -122,7 +122,7 @@ func DefaultCoreConfiguration() []core.ConfigurationKey {
 		},
 		{
 			Key:      ConnectorPhaseRotation.String(),
-			Readonly: false,
+			Readonly: true,
 			Value:    lo.ToPtr("Unknown"),
 		},
 		{
@@ -190,12 +190,12 @@ func DefaultLocalAuthConfiguration() []core.ConfigurationKey {
 		{
 			Key:      LocalAuthListMaxLength.String(),
 			Readonly: true,
-			Value:    lo.ToPtr("10"),
+			Value:    lo.ToPtr("100"),
 		},
 		{
 			Key:      SendLocalListMaxLength.String(),
 			Readonly: true,
-			Value:    lo.ToPtr("10"),
+			Value:    lo.ToPtr("100"),
 		},
 	}
 }
@@ -252,6 +252,22 @@ func (config *Config) UpdateKey(key string, value *string) error {
 	}
 
 	config.Keys[index].Value = value
+	return nil
+}
+
+// UpdateKeyReadability updates whether the key is updatable or not.
+func (config *Config) UpdateKeyReadability(key string, readable bool) error {
+	log.Debugf("Updating key readability %s", key)
+
+	// Find the index of the key
+	_, index, isFound := lo.FindIndexOf(config.Keys, func(item core.ConfigurationKey) bool {
+		return item.Key == key
+	})
+	if !isFound {
+		return ErrKeyNotFound
+	}
+
+	config.Keys[index].Readonly = readable
 	return nil
 }
 

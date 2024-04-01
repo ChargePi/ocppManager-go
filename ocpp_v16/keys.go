@@ -66,6 +66,21 @@ const (
 	ChargingScheduleMaxPeriods              = Key("ChargingScheduleMaxPeriods")
 	MaxChargingProfilesInstalled            = Key("MaxChargingProfilesInstalled")
 	ConnectorSwitch3to1PhaseSupported       = Key("ConnectorSwitch3to1PhaseSupported")
+
+	/* ----------------- ISO15118 keys ----------------------- */
+	CentralContractValidationAllowed = Key("CentralContractValidationAllowed")
+	CertificateSignedMaxChainSize    = Key("CertificateSignedMaxChainSize")
+	CertSigningWaitMinimum           = Key("CertSigningWaitMinimum")
+	CertSigningRepeatTimes           = Key("CertSigningRepeatTimes")
+	CertificateStoreMaxLength        = Key("CertificateStoreMaxLength")
+	ContractValidationOffline        = Key("ContractValidationOffline")
+	ISO15118PnCEnabled               = Key("ISO15118PnCEnabled")
+
+	/* ----------------- Security extension keys ----------------------- */
+	AuthorizationData              = Key("AuthorizationData")
+	AdditionalRootCertificateCheck = Key("AdditionalRootCertificateCheck")
+	CpoName                        = Key("CpoName")
+	SecurityProfile                = Key("SecurityProfile")
 )
 
 var (
@@ -108,6 +123,13 @@ var (
 	MandatoryFirmwareKeys = []Key{
 		SupportedFileTransferProtocols,
 	}
+
+	MandatoryISO15118Keys = []Key{
+		ISO15118PnCEnabled,
+		ContractValidationOffline,
+	}
+
+	// Security extension does not have any mandatory keys
 )
 
 func GetMandatoryKeysForProfile(profiles ...string) []Key {
@@ -123,6 +145,7 @@ func GetMandatoryKeysForProfile(profiles ...string) []Key {
 			mandatoryKeys = append(mandatoryKeys, MandatoryLocalAuthKeys...)
 		case firmware.ProfileName:
 			mandatoryKeys = append(mandatoryKeys, MandatoryFirmwareKeys...)
+			// todo IS15118 mandatory keys validation
 		}
 	}
 

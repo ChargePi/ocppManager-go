@@ -24,7 +24,7 @@ type (
 		GetConfiguration() ([]core.ConfigurationKey, error)
 	}
 
-	ManagerV1 struct {
+	ManagerV16 struct {
 		supportedProfiles []string
 		ocppConfig        *Config
 		mandatoryKeys     []Key
@@ -34,7 +34,7 @@ type (
 	}
 )
 
-func NewV16ConfigurationManager(defaultConfiguration Config, profiles ...string) (*ManagerV1, error) {
+func NewV16ConfigurationManager(defaultConfiguration Config, profiles ...string) (*ManagerV16, error) {
 	mandatoryKeys := GetMandatoryKeysForProfile(profiles...)
 
 	// Validate default configuration
@@ -43,7 +43,7 @@ func NewV16ConfigurationManager(defaultConfiguration Config, profiles ...string)
 		return nil, err
 	}
 
-	return &ManagerV1{
+	return &ManagerV16{
 		ocppConfig:       &defaultConfiguration,
 		mandatoryKeys:    mandatoryKeys,
 		onUpdateHandlers: make(map[Key]OnUpdateHandler),
@@ -52,7 +52,7 @@ func NewV16ConfigurationManager(defaultConfiguration Config, profiles ...string)
 }
 
 // SetConfiguration validates the provided and overwrites the current configuration
-func (m *ManagerV1) SetConfiguration(configuration Config) error {
+func (m *ManagerV16) SetConfiguration(configuration Config) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -67,17 +67,17 @@ func (m *ManagerV1) SetConfiguration(configuration Config) error {
 }
 
 // RegisterCustomKeyValidator registers a custom key validator
-func (m *ManagerV1) RegisterCustomKeyValidator(validator KeyValidator) {
+func (m *ManagerV16) RegisterCustomKeyValidator(validator KeyValidator) {
 	m.keyValidator = validator
 }
 
 // GetMandatoryKeys returns the mandatory keys for the configuration
-func (m *ManagerV1) GetMandatoryKeys() []Key {
+func (m *ManagerV16) GetMandatoryKeys() []Key {
 	return m.mandatoryKeys
 }
 
 // SetMandatoryKeys sets the mandatory keys for the configuration
-func (m *ManagerV1) SetMandatoryKeys(mandatoryKeys []Key) error {
+func (m *ManagerV16) SetMandatoryKeys(mandatoryKeys []Key) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -97,7 +97,7 @@ func (m *ManagerV1) SetMandatoryKeys(mandatoryKeys []Key) error {
 }
 
 // UpdateKey updates the value of a specific key
-func (m *ManagerV1) UpdateKey(key Key, value *string) error {
+func (m *ManagerV16) UpdateKey(key Key, value *string) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -128,7 +128,7 @@ func (m *ManagerV1) UpdateKey(key Key, value *string) error {
 }
 
 // GetConfiguration returns the full current configuration
-func (m *ManagerV1) GetConfiguration() ([]core.ConfigurationKey, error) {
+func (m *ManagerV16) GetConfiguration() ([]core.ConfigurationKey, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -136,7 +136,7 @@ func (m *ManagerV1) GetConfiguration() ([]core.ConfigurationKey, error) {
 }
 
 // GetConfigurationValue returns the value of a specific key
-func (m *ManagerV1) GetConfigurationValue(key Key) (*string, error) {
+func (m *ManagerV16) GetConfigurationValue(key Key) (*string, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -144,7 +144,7 @@ func (m *ManagerV1) GetConfigurationValue(key Key) (*string, error) {
 }
 
 // ValidateKey validates a specific key by checking if there is a custom validator registered
-func (m *ManagerV1) ValidateKey(key Key, value *string) error {
+func (m *ManagerV16) ValidateKey(key Key, value *string) error {
 	if m.keyValidator == nil {
 		return nil
 	}
@@ -158,7 +158,7 @@ func (m *ManagerV1) ValidateKey(key Key, value *string) error {
 }
 
 // OnUpdateKey registers a function to call after a specific key has been updated.
-func (m *ManagerV1) OnUpdateKey(key Key, handler OnUpdateHandler) error {
+func (m *ManagerV16) OnUpdateKey(key Key, handler OnUpdateHandler) error {
 	_, err := m.ocppConfig.GetConfigurationValue(key.String())
 	if err != nil {
 		return err
