@@ -19,6 +19,7 @@ require (
 	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/leodido/go-urn v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/relvacode/iso8601 v1.3.0 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/sys v0.0.0-20220804214406-8e32c043e418 // indirect
 	gopkg.in/go-playground/validator.v9 v9.30.0 // indirect
