@@ -3,8 +3,13 @@ name: Test code
 on:
   push:
     branches:
-        - master
+      - master
+    paths-ignore:
+      - '*.md'
   pull_request:
+    types: [ opened, synchronize ]
+    paths-ignore:
+      - '*.md'
     branches:
       - master
 
@@ -22,11 +27,10 @@ jobs:
         with:
           go-version: "^1.17"
 
-      - name: Build
-        env:
-          GOOS: linux
-          GOARCH: amd64
-        run: go build .
+      - name: Install deps & build
+        run: |
+          go mod download
+          go build -v ./...
 
-      - name: Test
-        run: go test --short -v ./...
+      - name: Test with the Go CLI
+        run: go test
