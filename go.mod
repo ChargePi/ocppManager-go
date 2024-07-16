@@ -6,7 +6,7 @@ replace github.com/lorenzodonini/ocpp-go v0.18.0 => github.com/ChargePi/ocpp-go 
 
 require (
 	github.com/lorenzodonini/ocpp-go v0.18.0
-	github.com/samber/lo v1.45.0
+	github.com/samber/lo v1.46.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
 )
