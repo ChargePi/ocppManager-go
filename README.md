@@ -1,6 +1,8 @@
 # OCPP variable manager
 
-A library for managing OCPP 1.6 and 2.0.1 variables, with mandatory key and custom value validation.
+A library for managing OCPP 1.6 variables, with mandatory key and custom value validation.
+
+In the future, this library will be extended to support OCPP 2.0.1 as well.
 
 ## Installing
 
@@ -26,7 +28,12 @@ func main() {
 	log.SetLevel(log.DebugLevel)
 
 	supportedProfiles := []string{core.ProfileName, smartcharging.ProfileName}
-	defaultConfig := ocpp_v16.DefaultConfiguration(supportedProfiles...)
+	defaultConfig, err := ocpp_v16.DefaultConfiguration(supportedProfiles...)
+	if err != nil {
+		log.Errorf("Error getting default configuration: %v", err)
+		return
+	}
+
 	manager, err := ocpp_v16.NewV16ConfigurationManager(defaultConfig, supportedProfiles...)
 
 	// Get value
