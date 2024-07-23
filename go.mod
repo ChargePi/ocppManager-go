@@ -5,6 +5,7 @@ go 1.22.1
 replace github.com/lorenzodonini/ocpp-go v0.18.0 => github.com/ChargePi/ocpp-go v0.18.1
 
 require (
+	github.com/agrison/go-commons-lang v0.0.0-20240106075236-2e001e6401ef
 	github.com/lorenzodonini/ocpp-go v0.18.0
 	github.com/samber/lo v1.46.0
 	github.com/sirupsen/logrus v1.9.3

@@ -1,12 +1,16 @@
 package ocpp_v16
 
 import (
+	"errors"
 	"fmt"
 	"sync"
 
+	"github.com/agrison/go-commons-lang/stringUtils"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/samber/lo"
 )
+
+var ErrKeyCannotBeEmpty = errors.New("key cannot be empty")
 
 type (
 	KeyValidator    func(Key Key, value *string) bool
@@ -159,6 +163,11 @@ func (m *ManagerV16) ValidateKey(key Key, value *string) error {
 
 // OnUpdateKey registers a function to call after a specific key has been updated.
 func (m *ManagerV16) OnUpdateKey(key Key, handler OnUpdateHandler) error {
+	if stringUtils.IsEmpty(key.String()) {
+		return ErrKeyCannotBeEmpty
+	}
+
+	// Validate that the key exists
 	_, err := m.ocppConfig.GetConfigurationValue(key.String())
 	if err != nil {
 		return err
