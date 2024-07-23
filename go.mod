@@ -1,6 +1,6 @@
 module github.com/ChargePi/ocppManager-go
 
-go 1.18
+go 1.22.1
 
 replace github.com/lorenzodonini/ocpp-go v0.18.0 => github.com/ChargePi/ocpp-go v0.18.1
 

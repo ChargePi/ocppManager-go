@@ -11,8 +11,13 @@ func main() {
 	log.SetLevel(log.DebugLevel)
 
 	supportedProfiles := []string{core.ProfileName, smartcharging.ProfileName}
-	defaultConfig := ocpp_v16.DefaultConfiguration(supportedProfiles...)
-	manager, err := ocpp_v16.NewV16ConfigurationManager(defaultConfig, supportedProfiles...)
+	defaultConfig, err := ocpp_v16.DefaultConfigurationFromProfiles(supportedProfiles...)
+	if err != nil {
+		log.Errorf("Error getting configuration value: %v", err)
+		return
+	}
+
+	manager, err := ocpp_v16.NewV16ConfigurationManager(*defaultConfig, supportedProfiles...)
 
 	// Get value
 	value, err := manager.GetConfigurationValue(ocpp_v16.AuthorizeRemoteTxRequests)
