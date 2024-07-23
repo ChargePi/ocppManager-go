@@ -3,16 +3,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-    assignees:
-      - "xBlaz3kx"
-    reviewers:
-      - "xBlaz3kx"
-
-  - package-ecosystem: "docker"
-    directory: "/build/package/"
-    schedule:
-      interval: "weekly"
+      interval: "monthly"
     assignees:
       - "xBlaz3kx"
     reviewers:
@@ -21,10 +12,8 @@ updates:
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     assignees:
       - "xBlaz3kx"
-      - "aljazmark"
     reviewers:
       - "xBlaz3kx"
-      - "aljazmark"
