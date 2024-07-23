@@ -29,12 +29,11 @@ type (
 	}
 
 	ManagerV16 struct {
-		supportedProfiles []string
-		ocppConfig        *Config
-		mandatoryKeys     []Key
-		keyValidator      KeyValidator
-		onUpdateHandlers  map[Key]OnUpdateHandler
-		mu                sync.Mutex
+		ocppConfig       *Config
+		mandatoryKeys    []Key
+		keyValidator     KeyValidator
+		onUpdateHandlers map[Key]OnUpdateHandler
+		mu               sync.Mutex
 	}
 )
 

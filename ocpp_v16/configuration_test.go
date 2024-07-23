@@ -74,6 +74,7 @@ func (s *OcppConfigTest) TestGetConfigurationValue() {
 	// Invalid key
 	value, err = s.config.GetConfigurationValue("Test4")
 	s.Assert().Error(err)
+	s.Assert().Nil(value)
 }
 
 func (s *OcppConfigTest) TestGetVersion() {
