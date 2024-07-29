@@ -141,7 +141,7 @@ func (s *OcppConfigTest) TestValidate() {
 	s.Assert().NoError(err)
 
 	// Missing mandatory key
-	s.config.Keys = s.config.Keys[:len(s.config.Keys)-1]
+	s.config.Keys = s.config.Keys[:len(s.config.Keys)-2]
 	err = s.config.Validate(MandatoryCoreKeys)
 	s.Assert().Error(err)
 }

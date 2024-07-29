@@ -3,6 +3,7 @@ package ocpp_v16
 import (
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/samber/lo"
@@ -94,17 +95,19 @@ func (config *Config) SetVersion(version int) {
 // Validate validates the configuration - check if all mandatory keys are present.
 func (config *Config) Validate(mandatoryKeys []Key) error {
 	missingKey := ""
-	containsMandatoryKeys := lo.ContainsBy(mandatoryKeys, func(key Key) bool {
+
+	containsMandatoryKeys := true
+
+	for _, key := range mandatoryKeys {
 		containsKey := lo.ContainsBy(config.Keys, func(item core.ConfigurationKey) bool {
 			return item.Key == key.String()
 		})
 
 		if !containsKey {
-			missingKey = key.String()
+			missingKey = strings.Join([]string{missingKey, key.String()}, ", ")
+			containsMandatoryKeys = false
 		}
-
-		return containsKey
-	})
+	}
 
 	if !containsMandatoryKeys {
 		return fmt.Errorf("missing mandatory keys: %s", missingKey)
