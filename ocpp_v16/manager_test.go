@@ -54,6 +54,8 @@ func (s *ConfigurationManagerTestSuite) TestUpdateConfiguration() {
 	s.Assert().Equal("123", *value)
 
 	err = s.manager.UpdateKey(HeartbeatInterval, nil)
+
+	value, err = s.manager.GetConfigurationValue(HeartbeatInterval)
 	s.Assert().NoError(err)
 	s.Assert().Nil(value)
 
