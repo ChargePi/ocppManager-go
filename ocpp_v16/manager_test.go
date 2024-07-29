@@ -48,12 +48,14 @@ func (s *ConfigurationManagerTestSuite) TestUpdateConfiguration() {
 	// Key found
 	err := s.manager.UpdateKey(HeartbeatInterval, lo.ToPtr("123"))
 	s.Assert().NoError(err)
+
 	value, err := s.manager.GetConfigurationValue(HeartbeatInterval)
 	s.Assert().NoError(err)
 	s.Assert().NotNil(value)
 	s.Assert().Equal("123", *value)
 
 	err = s.manager.UpdateKey(HeartbeatInterval, nil)
+	s.Assert().NoError(err)
 
 	value, err = s.manager.GetConfigurationValue(HeartbeatInterval)
 	s.Assert().NoError(err)
