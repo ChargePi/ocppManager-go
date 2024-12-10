@@ -92,7 +92,7 @@ func DefaultCoreConfiguration() []core.ConfigurationKey {
 				string(types.MeasurandCurrentImport),
 				string(types.MeasurandPowerActiveImport),
 				string(types.MeasurandEnergyActiveImportInterval),
-				string(types.MeasueandSoC),
+				string(types.MeasurandSoC),
 			}, ",")),
 		},
 		{
@@ -133,7 +133,7 @@ func DefaultCoreConfiguration() []core.ConfigurationKey {
 				string(types.MeasurandCurrentImport),
 				string(types.MeasurandPowerActiveImport),
 				string(types.MeasurandEnergyActiveImportInterval),
-				string(types.MeasueandSoC),
+				string(types.MeasurandSoC),
 			}, ",")),
 		},
 		{
@@ -144,7 +144,7 @@ func DefaultCoreConfiguration() []core.ConfigurationKey {
 				string(types.MeasurandCurrentImport),
 				string(types.MeasurandPowerActiveImport),
 				string(types.MeasurandEnergyActiveImportInterval),
-				string(types.MeasueandSoC),
+				string(types.MeasurandSoC),
 			}, ",")),
 		},
 		{
