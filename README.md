@@ -1,13 +1,14 @@
 # OCPP variable manager
 
-A library for managing OCPP 1.6 variables, with mandatory key and custom value validation.
+A library for managing OCPP 1.6 variables, with versioning, mandatory keys and custom value validation.
+It also includes sane defaults for the required configuration keys.
 
 In the future, this library will be extended to support OCPP 2.0.1 as well.
 
 ## Installing
 
 ```bash
-    go get github.com/ChargePi/ocppManager-go
+  go get github.com/ChargePi/ocppManager-go
 ```
 
 ## ⚡ Usage
@@ -18,10 +19,10 @@ Check out the full [example](examples/v16/example.go). It also contains a sample
 package main
 
 import (
+	"github.com/ChargePi/ocppManager-go/ocpp_v16"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
 	log "github.com/sirupsen/logrus"
-	"github.com/ChargePi/ocppManager-go/ocpp_v16"
 )
 
 func main() {
@@ -77,3 +78,18 @@ func main() {
 }
 
 ```
+
+## Notes
+
+1. This library is still in development, and the API might change in the future.
+2. Storing the configuration is not part of this library. You can use a database, a file, or any other storage mechanism
+   to store the configuration by getting the configuration as a map and storing it in your preferred way.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
+requests to us.
