@@ -18,6 +18,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: reviewdog/action-setup@v1
+      - name: Go Lint
+        uses: reviewdog/action-golangci-lint@v2
         with:
-          reviewdog_version: latest
+          cache: true
+
+      - name: misspell
+        uses: reviewdog/action-misspell@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          locale: "US"
