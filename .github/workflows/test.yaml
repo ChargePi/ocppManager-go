@@ -37,7 +37,7 @@ jobs:
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
         with:
-          name: code-coverage-${{github.sha}}
+          name: code-coverage
           path: unit_coverage.out
 
   code_coverage:
@@ -53,5 +53,5 @@ jobs:
     steps:
       - uses: fgrosse/go-coverage-report@v1.1.1
         with:
-          coverage-artifact-name: code-coverage-${{github.sha}} # can be omitted if you used this default value
+          coverage-artifact-name: code-coverage
           coverage-file-name: unit_coverage.out
