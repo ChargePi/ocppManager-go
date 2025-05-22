@@ -1,19 +1,32 @@
 # OCPP variable manager
 
-A library for managing OCPP 1.6 variables, with versioning, mandatory keys and custom value validation.
-It also includes sane defaults for the required configuration keys.
+A library for managing OCPP variables in Go. It provides a simple way to manage OCPP configuration variables, including
+getting and setting values, validating values, and enforcing mandatory keys.
 
-In the future, this library will be extended to support OCPP 2.0.1 as well.
+## Features
+
+- Configuration versioning
+- Mandatory key enforcement
+- Custom value validation
+- Provides sane default values
+
+## Roadmap
+
+- [x] Configuration versioning
+- [x] Custom value validation
+- [x] Mandatory key enforcement
+- [x] Support for OCPP 1.6
+- [ ] Support for OCPP 2.0.1
 
 ## Installing
 
 ```bash
-  go get github.com/ChargePi/ocppManager-go
+  go get github.com/ChargePi/ocppManager-go@latest
 ```
 
 ## ⚡ Usage
 
-Check out the full [example](examples/v16/example.go). It also contains a sample configuration file.
+Check out the full [OCPP 1.6 example](examples/v16/example.go).
 
 ```go
 package main
